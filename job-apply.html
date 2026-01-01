@@ -506,7 +506,7 @@
               id="resume"
               type="file"
               class="full"
-              accept=".pdf"
+              accept=".pdf,application/pdf"
               required
             />
           </div>
@@ -580,6 +580,8 @@
     </footer>
 
     <script>
+      const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+      const ALLOWED_TYPES = ["application/pdf"];
       const jobData = {
         java: {
           title: "Java Engineers",
@@ -688,6 +690,18 @@
 
         if (!file) {
           errorMsg.innerText = "Please upload resume PDF";
+          return;
+        }
+
+        // ✅ File size check
+        if (file.size > MAX_FILE_SIZE) {
+          errorMsg.innerText = "File size must be less than 5 MB";
+          return;
+        }
+
+        // ✅ MIME type check (stronger than extension)
+        if (!ALLOWED_TYPES.includes(file.type)) {
+          errorMsg.innerText = "Only PDF files are allowed";
           return;
         }
 
