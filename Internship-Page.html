@@ -1,712 +1,931 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Internship | Trisentrix</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internship | Trisentrix</title>
+    <link rel="shortcut icon" href="./assets/img/favicon.png" />
+    <link rel="shortcut icon" href="./assets/img/favicon.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./assets/fonts/unicons/unicons.css"
+    />
+    <link rel="stylesheet" href="./assets/css/plugins.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", system-ui, Arial, sans-serif;
+        background: #edf2fc;
+        color: #0f172a;
+      }
 
-<style>
-body{
-  margin:0;
-  font-family:"Segoe UI",system-ui,Arial,sans-serif;
-  background:#edf2fc;
-  color:#0f172a;
-}
+      /* ================= HEADER ================= */
+      header {
+        background: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+        position: relative;
+        z-index: 100;
+      }
 
-/* ================= HEADER ================= */
-header{
-  background:#ffffff;
-  border-bottom:1px solid #e5e7eb;
-  position:relative;
-  z-index:100;
-}
+      .header {
+        max-width: 1200px;
+        margin: auto;
+        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
 
-/* POP HEADER - appears on scroll */
-#popHeader{
-  background:#ffffff;
-  border-bottom:1px solid #e5e7eb;
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:999;
-  box-shadow:0 0 0 transparent;
-  transition:all 0.4s ease;
-  transform:translateY(-100%);
-  width:100%;
-}
+      .header img {
+        width: 200px;
+        height: auto;
+        max-height: 100px;
+        object-fit: contain;
+        display: block;
+        flex-shrink: 0;
+      }
 
-#popHeader.show{
-  transform:translateY(0);
-  box-shadow:0 8px 24px rgba(0,0,0,0.12);
-}
+      /* ✅ CENTER NAV PERFECTLY
+      .nav {
+        display: flex;
+        gap: 32px;
 
-.header{
-  max-width:1200px;
-  margin:auto;
-  padding:18px 24px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  position:relative;
-}
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
 
-.header img{width:200px; height:auto; max-height:100px; object-fit:contain; display:block; flex-shrink:0;}
+      .nav a {
+        text-decoration: none;
+        font-weight: 600;
+        color: #0f172a;
+      }
+      .nav a:hover {
+        color: #3f78e0;
+      } */
 
-/* ✅ CENTER NAV PERFECTLY */
-.nav{
-  display:flex;
-  gap:32px;
+      .contact-btn {
+        padding: 10px 22px;
+        background: #3f78e0;
+        color: #fff;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+      }
 
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-}
+      /* ================= PAGE ================= */
+      .wrapper {
+        max-width: 900px;
+        margin: 70px auto;
+        background: #ffffff;
+        padding: 56px;
+        border-radius: 20px;
+        box-shadow: 0 24px 56px rgba(0, 0, 0, 0.08);
+      }
 
-.nav a{
-  text-decoration:none;
-  font-weight:600;
-  color:#0f172a;
-}
-.nav a:hover{color:#3f78e0}
+      h1 {
+        font-size: 32px;
+        margin-bottom: 6px;
+      }
+      .job-meta {
+        color: #64748b;
+        margin-bottom: 34px;
+      }
+      h2 {
+        font-size: 22px;
+        margin: 36px 0 14px;
+      }
+      p {
+        font-size: 15.5px;
+        line-height: 1.8;
+        color: #334155;
+      }
+      ul {
+        padding-left: 22px;
+      }
+      li {
+        margin-bottom: 10px;
+      }
 
-.contact-btn{
-  padding:10px 22px;
-  background:#3f78e0;
-  color:#fff;
-  border-radius:999px;
-  text-decoration:none;
-  font-weight:600;
-}
+      /* ================= APPLY BOX ================= */
+      .apply-box {
+        margin-top: 56px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 44px;
+      }
+      .apply-note {
+        color: #64748b;
+        margin-bottom: 30px;
+      }
 
-/* ================= PAGE ================= */
-.wrapper{
-  max-width:900px;
-  margin:70px auto;
-  background:#ffffff;
-  padding:56px;
-  border-radius:20px;
-  box-shadow:0 24px 56px rgba(0,0,0,.08);
-}
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+      }
 
-h1{font-size:32px;margin-bottom:6px}
-.job-meta{color:#64748b;margin-bottom:34px}
-h2{font-size:22px;margin:36px 0 14px}
-p{font-size:15.5px;line-height:1.8;color:#334155}
-ul{padding-left:22px}
-li{margin-bottom:10px}
+      input,
+      select {
+        height: 48px;
+        padding: 0 14px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        font-size: 14px;
+        box-sizing: border-box;
+        font-family: inherit;
+      }
 
-/* ================= APPLY BOX ================= */
-.apply-box{
-  margin-top:56px;
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  border-radius:18px;
-  padding:44px;
-}
-.apply-note{color:#64748b;margin-bottom:30px}
+      .error {
+        color: #ef4444;
+        margin-top: 12px;
+        text-align: center;
+      }
 
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:22px;
-}
+      input[type="file"] {
+        padding: 8px 14px;
+        display: block;
+        height: auto;
+        line-height: 1.5;
+      }
 
-input,select{
-  height:48px;
-  padding:0 14px;
-  border-radius:8px;
-  border:1px solid #cbd5e1;
-  font-size:14px;
-  box-sizing:border-box;
-  font-family:inherit;
-}
+      .full {
+        grid-column: span 2;
+      }
 
-.error{color:#ef4444;margin-top:12px;text-align:center}
+      /* File input */
+      .file-wrap {
+        grid-column: span 2;
+      }
 
-input[type="file"]{
-  padding:8px 14px;
-  display:block;
-  height:auto;
-  line-height:1.5;
-}
+      button {
+        display: block;
+        margin: 42px auto 0;
+        padding: 14px 60px;
+        background: #3f78e0;
+        color: #ffffff;
+        border: none;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+      }
 
-.full{grid-column:span 2}
+      footer {
+        background: #21262c;
+        padding: 70px 0;
+        margin-top: 80px;
+      }
 
-/* File input */
-.file-wrap{grid-column:span 2}
+      /* Ensure mailto/email links in footer are white */
+      .footer a[href^="mailto"] {
+        color: #ffffff !important;
+        text-decoration: none;
+      }
+      .footer a[href^="mailto"]:hover {
+        color: #ffffff !important;
+        text-decoration: underline;
+      }
+      .footer-container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 24px;
+      }
 
-button{
-  display:block;
-  margin:42px auto 0;
-  padding:14px 60px;
-  background:#3f78e0;
-  color:#ffffff;
-  border:none;
-  border-radius:999px;
-  font-size:15px;
-  font-weight:600;
-  cursor:pointer;
-}
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 60px;
+        align-items: start;
+      }
 
-footer{
-  background:#21262c;
-  padding:70px 0;
-  margin-top:80px;
-}
+      /* BRAND */
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
 
+      .footer-brand img {
+        width: 200px !important;
+        height: 80px !important;
+        object-fit: contain;
+        flex-shrink: 0;
+        display: block !important;
+      }
 
-/* Ensure mailto/email links in footer are white */
-.footer a[href^="mailto"]{
-  color:#ffffff !important;
-  text-decoration: none;
-}
-.footer a[href^="mailto"]:hover{
-  color:#ffffff !important;
-  text-decoration: underline;
-}
-.footer-container{
-  max-width:1200px;
-  margin:auto;
-  padding:0 24px;
-}
+      .footer-brand span {
+        font-size: 24px;
+        font-weight: 700;
+        color: #f59e0b;
+      }
 
-.footer-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:60px;
-  align-items:start;
-}
+      .footer-links a {
+        color: #cbd5e1;
+        font-size: 14px;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 10px;
+      }
 
-/* BRAND */
-.footer-brand{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  margin-bottom:18px;
-}
+      .footer-links a:hover {
+        color: #3f78e0;
+      }
 
-.footer-brand img{
-  width:200px !important;
-  height:80px !important;
-  object-fit:contain;
-  flex-shrink:0;
-  display:block !important;
-}
+      footer h4 {
+        color: #ffffff;
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
 
-.footer-brand span{
-  font-size:24px;
-  font-weight:700;
-  color:#f59e0b;
-}
+      footer p {
+        color: #cbd5e1;
+        font-size: 14px;
+        line-height: 1.8;
+        margin-bottom: 12px;
+      }
 
-.footer-links a{
-  color:#cbd5e1;
-  font-size:14px;
-  text-decoration:none;
-  display:block;
-  margin-bottom:10px;
-}
+      /* NEWSLETTER */
+      .newsletter-box {
+        display: flex;
+        gap: 0;
+        margin-top: 14px;
+        align-items: center;
+        width: 100%;
+      }
 
-.footer-links a:hover{
-  color:#3f78e0;
-}
+      .newsletter-box input {
+        flex: 1;
+        height: 48px;
+        padding: 0 14px;
+        border: none;
+        border-radius: 6px 0 0 6px;
+        outline: none;
+        box-sizing: border-box;
+        font-size: 14px;
+      }
 
-footer h4{
-  color:#ffffff;
-  font-size:16px;
-  margin-bottom:16px;
-}
+      .newsletter-box button {
+        height: 48px;
+        padding: 0 28px;
+        border: none;
+        background: #3f78e0;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0 6px 6px 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        font-size: 14px;
+        margin: 0;
+        line-height: 1;
+      }
 
-footer p{
-  color:#cbd5e1;
-  font-size:14px;
-  line-height:1.8;
-  margin-bottom:12px;
-}
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .wrapper {
+          margin: 40px 16px;
+          padding: 32px;
+        }
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .full,
+        .file-wrap {
+          grid-column: span 1;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .header {
+          flex-direction: column;
+          gap: 14px;
+        }
+      }
 
-/* NEWSLETTER */
-.newsletter-box{
-  display:flex;
-  gap:0;
-  margin-top:14px;
-  align-items:center;
-  width:100%;
-}
+      /* ================= HERO ================= */
+      .hero {
+        min-height: 55vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 40px 20px;
+        background: #edf2fc;
+      }
 
-.newsletter-box input{
-  flex:1;
-  height:48px;
-  padding:0 14px;
-  border:none;
-  border-radius:6px 0 0 6px;
-  outline:none;
-  box-sizing:border-box;
-  font-size:14px;
-}
+      .hero h1 {
+        font-size: 48px;
+        margin-bottom: 12px;
+      }
 
-.newsletter-box button{
-  height:48px;
-  padding:0 28px;
-  border:none;
-  background:#3f78e0;
-  color:#fff;
-  font-weight:600;
-  border-radius:0 6px 6px 0;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  white-space:nowrap;
-  font-size:14px;
-  margin:0;
-  line-height:1;
-}
+      .hero p {
+        font-size: 20px;
+        color: #64748b;
+        margin-bottom: 26px;
+      }
 
-/* RESPONSIVE */
-@media(max-width:768px){
-  .wrapper{margin:40px 16px;padding:32px}
-  .form-grid{grid-template-columns:1fr}
-  .full,.file-wrap{grid-column:span 1}
-  .footer-grid{grid-template-columns:1fr}
-  .header{
-    flex-direction:column;
-    gap:14px;
-  }
-}
+      .hero button {
+        padding: 14px 36px;
+        background: #3f78e0;
+        color: #fff;
+        border-radius: 26px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+      }
 
-/* ================= HERO ================= */
-.hero {
-    min-height: 55vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 40px 20px;
-    background: #edf2fc;
-}
+      /* ================= MAIN ================= */
+      .page-container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 30px 20px 70px;
+      }
 
-.hero h1 {
-    font-size: 48px;
-    margin-bottom: 12px;
-}
+      /* ================= INTRO ================= */
+      .intro {
+        max-width: 820px;
+        margin-bottom: 30px;
+      }
 
-.hero p {
-    font-size: 20px;
-    color: #64748b;
-    margin-bottom: 26px;
-}
+      .intro h2 {
+        font-size: 34px;
+        margin-bottom: 14px;
+      }
 
-.hero button {
-    padding: 14px 36px;
-    background: #3f78e0;
-    color: #fff;
-    border-radius: 26px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-}
+      .intro p {
+        font-size: 18px;
+        color: #666;
+        line-height: 1.65;
+      }
 
-/* ================= MAIN ================= */
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 30px 20px 70px;
-}
+      /* ================= FEATURES ================= */
+      .feature-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        margin-bottom: 50px;
+      }
 
-/* ================= INTRO ================= */
-.intro {
-    max-width: 820px;
-    margin-bottom: 30px;
-}
+      .feature-row img {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        border-radius: 18px;
+      }
 
-.intro h2 {
-    font-size: 34px;
-    margin-bottom: 14px;
-}
+      .feature-text h3 {
+        font-size: 26px;
+        margin-bottom: 10px;
+      }
 
-.intro p {
-    font-size: 18px;
-    color: #666;
-    line-height: 1.65;
-}
+      .feature-text p {
+        font-size: 16px;
+        color: #6f6f6f;
+        line-height: 1.6;
+      }
 
-/* ================= FEATURES ================= */
-.feature-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-    margin-bottom: 50px;
-}
+      /* ================= APPLICATION ================= */
+      .application {
+        text-align: center;
+        margin-top: 70px;
+      }
 
-.feature-row img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 18px;
-}
+      .application h2 {
+        font-size: 36px;
+      }
 
-.feature-text h3 {
-    font-size: 26px;
-    margin-bottom: 10px;
-}
+      .application p {
+        font-size: 20px;
+        color: #8a8a8a;
+        margin-bottom: 36px;
+      }
 
-.feature-text p {
-    font-size: 16px;
-    color: #6f6f6f;
-    line-height: 1.6;
-}
+      .form-box {
+        background: #f7f8fa;
+        padding: 42px;
+        border-radius: 16px;
+        text-align: left;
+      }
 
-/* ================= APPLICATION ================= */
-.application {
-    text-align: center;
-    margin-top: 70px;
-}
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
 
-.application h2 {
-    font-size: 36px;
-}
+      label {
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
 
-.application p {
-    font-size: 20px;
-    color: #8a8a8a;
-    margin-bottom: 36px;
-}
+      textarea {
+        height: 90px;
+        padding: 12px;
+        border: 1px solid #ccd1d7;
+        border-radius: 4px;
+        font-family: inherit;
+      }
 
-.form-box {
-    background: #f7f8fa;
-    padding: 42px;
-    border-radius: 16px;
-    text-align: left;
-}
+      .submit-btn {
+        padding: 14px;
+        background: #3f78e0;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 8px;
+        font-weight: 600;
+        margin-top: 20px;
+      }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
+      @media (max-width: 900px) {
+        .feature-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
 
-label {
-    font-size: 14px;
-    margin-bottom: 6px;
-}
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg center-nav transparent navbar-light">
+        <div
+          class="container xl:!flex-row lg:!flex-row !flex-nowrap items-center"
+        >
+          <div class="navbar-brand w-full">
+            <a href="./index.html">
+              <img
+                src="./assets/img/trise/logo.png"
+                srcset="./assets/img/trise/logo.png 2x"
+                alt="image"
+                width="220"
+              />
+            </a>
+          </div>
+          <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
+            <div
+              class="offcanvas-header xl:!hidden lg:!hidden flex items-center justify-between flex-row p-6"
+            >
+              <h3
+                class="!text-white xl:!text-[1.5rem] !text-[calc(1.275rem_+_0.3vw)] !mb-0"
+              >
+                Trisentrix
+              </h3>
+              <button
+                type="button"
+                class="btn-close btn-close-white !mr-[-0.75rem] m-0 p-0 leading-none !text-[#343f52] transition-all duration-[0.2s] ease-in-out border-0 motion-reduce:transition-none before:text-[1.05rem] before:text-white before:content-['\ed3b'] before:w-[1.8rem] before:h-[1.8rem] before:leading-[1.8rem] before:shadow-none before:transition-[background] before:duration-[0.2s] before:ease-in-out before:!flex before:justify-center before:items-center before:m-0 before:p-0 before:rounded-[100%] hover:no-underline bg-inherit before:bg-[rgba(255,255,255,.08)] before:font-Unicons hover:before:bg-[rgba(0,0,0,.11)]"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div
+              class="offcanvas-body xl:!ml-auto lg:!ml-auto flex flex-col !h-full"
+            >
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./about.html">About Us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="services.html">Services</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="product.html">Products</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="career.html">Careers</a>
+                </li>
+              </ul>
+              <!-- /.navbar-nav -->
+              <div class="offcanvas-footer xl:!hidden lg:!hidden">
+                <div>
+                  <a href="mailto:first.last@email.com" class="link-inverse"
+                    >contactus@trisentrix.com</a
+                  >
+                  <br />
+                  <br />
+                  <nav class="nav social social-white !mt-4">
+                    <a
+                      class="!text-[#cacaca] text-[1rem] transition-all duration-[0.2s] ease-in-out translate-y-0 motion-reduce:transition-none hover:translate-y-[-0.15rem] m-[0_.7rem_0_0]"
+                      href="#"
+                      ><i
+                        class="uil uil-twitter before:content-['\ed59'] !text-white text-[1rem]"
+                      ></i
+                    ></a>
+                    <a
+                      class="!text-[#cacaca] text-[1rem] transition-all duration-[0.2s] ease-in-out translate-y-0 motion-reduce:transition-none hover:translate-y-[-0.15rem] m-[0_.7rem_0_0]"
+                      href="#"
+                      ><i
+                        class="uil uil-facebook-f before:content-['\eae2'] !text-white text-[1rem]"
+                      ></i
+                    ></a>
+                    <a
+                      class="!text-[#cacaca] text-[1rem] transition-all duration-[0.2s] ease-in-out translate-y-0 motion-reduce:transition-none hover:translate-y-[-0.15rem] m-[0_.7rem_0_0]"
+                      href="#"
+                      ><i
+                        class="uil uil-dribbble before:content-['\eaa2'] !text-white text-[1rem]"
+                      ></i
+                    ></a>
+                    <a
+                      class="!text-[#cacaca] text-[1rem] transition-all duration-[0.2s] ease-in-out translate-y-0 motion-reduce:transition-none hover:translate-y-[-0.15rem] m-[0_.7rem_0_0]"
+                      href="#"
+                      ><i
+                        class="uil uil-instagram before:content-['\eb9c'] !text-white text-[1rem]"
+                      ></i
+                    ></a>
+                    <a
+                      class="!text-[#cacaca] text-[1rem] transition-all duration-[0.2s] ease-in-out translate-y-0 motion-reduce:transition-none hover:translate-y-[-0.15rem] m-[0_.7rem_0_0]"
+                      href="#"
+                      ><i
+                        class="uil uil-youtube before:content-['\edb5'] !text-white text-[1rem]"
+                      ></i
+                    ></a>
+                  </nav>
+                  <!-- /.social -->
+                </div>
+              </div>
+              <!-- /.offcanvas-footer -->
+            </div>
+            <!-- /.offcanvas-body -->
+          </div>
+          <!-- /.navbar-collapse -->
+          <div class="navbar-other w-full !flex !ml-auto">
+            <ul class="navbar-nav !flex-row !items-center !ml-auto">
+              <!-- <li class="nav-item dropdown language-select uppercase group">
+                <a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">En</a>
+                <ul class="dropdown-menu group-hover:shadow-[0_0.25rem_0.75rem_rgba(30,34,40,0.15)]">
+                  <li class="nav-item"><a class="dropdown-item hover:!text-[#3f78e0] hover:bg-[inherit] " href="#">En</a></li>
+                  <li class="nav-item"><a class="dropdown-item hover:!text-[#3f78e0] hover:bg-[inherit] " href="#">De</a></li>
+                  <li class="nav-item"><a class="dropdown-item hover:!text-[#3f78e0] hover:bg-[inherit] " href="#">Es</a></li>
+                </ul>
+              </li> -->
+              <li class="nav-item hidden xl:block lg:block md:block">
+                <a
+                  href="./contact.html"
+                  class="btn btn-sm btn-primary !text-white !bg-[#3f78e0] border-[#3f78e0] hover:text-white hover:bg-[#3f78e0] hover:!border-[#3f78e0] active:text-white active:bg-[#3f78e0] active:border-[#3f78e0] disabled:text-white disabled:bg-[#3f78e0] disabled:border-[#3f78e0] !rounded-[50rem] hover:translate-y-[-0.15rem] hover:shadow-[0_0.25rem_0.75rem_rgba(30,34,40,0.15)]"
+                  >Contact</a
+                >
+              </li>
+              <li class="nav-item xl:!hidden lg:!hidden">
+                <button class="hamburger offcanvas-nav-btn">
+                  <span></span>
+                </button>
+              </li>
+            </ul>
+            <!-- /.navbar-nav -->
+          </div>
+          <!-- /.navbar-other -->
+        </div>
+        <!-- /.container -->
+      </nav>
+      <!-- /.navbar -->
+    </header>
+    <!-- /header -->
 
-textarea {
-    height: 90px;
-    padding: 12px;
-    border: 1px solid #ccd1d7;
-    border-radius: 4px;
-    font-family: inherit;
-}
-
-.submit-btn {
-    padding: 14px;
-    background: #3f78e0;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    font-weight: 600;
-    margin-top: 20px;
-}
-
-@media (max-width: 900px) {
-    .feature-row {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<!-- POP HEADER (appears on scroll) -->
-<div id="popHeader">
-  <div class="header">
-    <img src="./assets/img/trise/logo.png">
-    <div class="nav">
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="services.html">Services</a>
-      <a href="product.html">Products</a>
-      <a href="career.html">Careers</a>
-    </div>
-    <a href="contact.html" class="contact-btn">Contact</a>
-  </div>
-</div>
-
-<!-- HEADER -->
-<header>
-  <div class="header">
-    <img src="./assets/img/trise/logo.png">
-
-    <div class="nav">
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="services.html">Services</a>
-      <a href="product.html">Products</a>
-      <a href="career.html">Careers</a>
-    </div>
-
-    <a href="contact.html" class="contact-btn">Contact</a>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="hero">
-    <div>
+    <!-- HERO -->
+    <section class="hero">
+      <div>
         <h1>Intern at Trisentrix.</h1>
         <p>Launch your career with real-world impact.</p>
-        <button onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">
-            Apply Now
+        <button
+          onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})"
+        >
+          Apply Now
         </button>
-    </div>
-</section>
+      </div>
+    </section>
 
-<!-- MAIN -->
-<div class="container">
-
-    <div class="intro">
+    <!-- MAIN -->
+    <div class="page-container">
+      <div class="intro">
         <h2>We build intelligent solutions that solve real-world problems.</h2>
         <p>
-            Trisentrix delivers scalable, intelligent digital solutions across industries.
-            Our internship program bridges academic learning with real-world execution,
-            empowering candidates through meaningful responsibilities.
+          Trisentrix delivers scalable, intelligent digital solutions across
+          industries. Our internship program bridges academic learning with
+          real-world execution, empowering candidates through meaningful
+          responsibilities.
         </p>
-    </div>
+      </div>
 
-    <div class="feature-row">
+      <div class="feature-row">
         <div class="feature-text">
-            <h3>Real Projects</h3>
-            <p>Interns actively contribute to live client projects, gaining exposure
-                to real development cycles, modern tools, and industry standards.</p>
+          <h3>Real Projects</h3>
+          <p>
+            Interns actively contribute to live client projects, gaining
+            exposure to real development cycles, modern tools, and industry
+            standards.
+          </p>
         </div>
-        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d" alt="Team working on project" loading="lazy">
-    </div>
+        <img
+          src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
+          alt="Team working on project"
+          loading="lazy"
+        />
+      </div>
 
-    <div class="feature-row">
-        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978" alt="Mentor guiding interns" loading="lazy">
+      <div class="feature-row">
+        <img
+          src="https://images.unsplash.com/photo-1552664730-d307ca884978"
+          alt="Mentor guiding interns"
+          loading="lazy"
+        />
         <div class="feature-text">
-            <h3>Mentorship</h3>
-            <p>Work closely with experienced mentors who provide technical guidance
-                and professional insight throughout your internship journey.</p>
+          <h3>Mentorship</h3>
+          <p>
+            Work closely with experienced mentors who provide technical guidance
+            and professional insight throughout your internship journey.
+          </p>
         </div>
-    </div>
+      </div>
 
-    <div class="feature-row">
+      <div class="feature-row">
         <div class="feature-text">
-            <h3>Growth Pathways</h3>
-            <p> Develop technical depth, leadership confidence, and collaboration
-                skills that prepare you for long-term success.</p>
+          <h3>Growth Pathways</h3>
+          <p>
+            Develop technical depth, leadership confidence, and collaboration
+            skills that prepare you for long-term success.
+          </p>
         </div>
-        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70" alt="Growth pathways and collaboration" loading="lazy">
-    </div>
+        <img
+          src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70"
+          alt="Growth pathways and collaboration"
+          loading="lazy"
+        />
+      </div>
 
-    <!-- APPLICATION -->
-    <div class="application" id="apply">
+      <!-- APPLICATION -->
+      <div class="application" id="apply">
         <h2>Join today.</h2>
         <p>Shape your journey at Trisentrix.</p>
 
         <div class="form-box">
-            <form class="form-grid" onsubmit="submitForm(event)">
-              <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input id="fullName" name="fullName" type="text" placeholder="Enter your full name" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email Address</label>
-                <input id="email" name="email" type="email" placeholder="you@example.com" required>
-              </div>
-              <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" required>
-              </div>
-              <div class="form-group">
-                <label for="status">Status</label>
-                <select id="status" name="status" required>
-                  <option value="">Select status</option>
-                  <option>Student</option>
-                  <option>Fresher</option>
-                  <option>Experienced</option>
-                </select>
-              </div>
-              <div class="form-group full">
-                <label for="domain">Preferred Domain</label>
-                <select id="domain" name="domain" required>
-                  <option value="">Select domain</option>
-                  <option>Frontend Development</option>
-                  <option>Backend Development</option>
-                  <option>Full Stack Development</option>
-                  <option>Web Design / UI</option>
-                  <option>Mobile Development (iOS / Android)</option>
-                  <option>DevOps / Cloud Engineering</option>
-                  <option>Site Reliability Engineering (SRE)</option>
-                  <option>Data Science</option>
-                  <option>Data Engineering</option>
-                  <option>Machine Learning / AI</option>
-                  <option>Big Data / Analytics</option>
-                  <option>Quality Assurance / Testing</option>
-                  <option>Cybersecurity / InfoSec</option>
-                  <option>Network Engineering</option>
-                  <option>Database Administration</option>
-                  <option>Embedded Systems / IoT</option>
-                  <option>Cloud Architecture</option>
-                  <option>Blockchain Development</option>
-                  <option>AR/VR / Game Development</option>
-                  <option>Product Management</option>
-                  <option>Project Management</option>
-                  <option>Technical Writing / Documentation</option>
-                  <option>IT Support / Helpdesk</option>
-                  <option>Automation / RPA</option>
-                  <option>Computer Vision</option>
-                  <option>Natural Language Processing (NLP)</option>
-                  <option>Business Intelligence (BI)</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div class="form-group full">
-                <label for="profile">Profile Description</label>
-                <textarea id="profile" name="profile" placeholder="Briefly describe your background, skills and what you want to learn"></textarea>
-              </div>
-              <div class="form-group full">
-                <label for="resume">Upload Resume (PDF)</label>
-                <input id="resume" name="resume" type="file" accept=".pdf" required>
-              </div>
-              <div class="form-group full">
-                <button type="submit" class="submit-btn">Submit Application</button>
-              </div>
-              <p class="error" id="error"></p>
-            </form>
+          <form class="form-grid" onsubmit="submitForm(event)">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="+91 98765 43210"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select id="status" name="status" required>
+                <option value="">Select status</option>
+                <option>Student</option>
+                <option>Fresher</option>
+                <option>Experienced</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="domain">Preferred Domain</label>
+              <select id="domain" name="domain" required>
+                <option value="">Select domain</option>
+                <option>Frontend Development</option>
+                <option>Backend Development</option>
+                <option>Full Stack Development</option>
+                <option>Web Design / UI</option>
+                <option>Mobile Development (iOS / Android)</option>
+                <option>DevOps / Cloud Engineering</option>
+                <option>Site Reliability Engineering (SRE)</option>
+                <option>Data Science</option>
+                <option>Data Engineering</option>
+                <option>Machine Learning / AI</option>
+                <option>Big Data / Analytics</option>
+                <option>Quality Assurance / Testing</option>
+                <option>Cybersecurity / InfoSec</option>
+                <option>Network Engineering</option>
+                <option>Database Administration</option>
+                <option>Embedded Systems / IoT</option>
+                <option>Cloud Architecture</option>
+                <option>Blockchain Development</option>
+                <option>AR/VR / Game Development</option>
+                <option>Product Management</option>
+                <option>Project Management</option>
+                <option>Technical Writing / Documentation</option>
+                <option>IT Support / Helpdesk</option>
+                <option>Automation / RPA</option>
+                <option>Computer Vision</option>
+                <option>Natural Language Processing (NLP)</option>
+                <option>Business Intelligence (BI)</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="profile">Description</label>
+              <textarea
+                id="profile"
+                name="profile"
+                placeholder="Briefly describe your background, skills and what you want to learn"
+              ></textarea>
+            </div>
+            <div class="form-group full">
+              <label for="resume">Upload Resume (PDF)</label>
+              <input
+                id="resume"
+                name="resume"
+                type="file"
+                accept=".pdf"
+                required
+              />
+            </div>
+            <div class="form-group full">
+              <button type="submit" class="submit-btn">
+                Submit Application
+              </button>
+            </div>
+            <p class="error" id="error"></p>
+          </form>
         </div>
+      </div>
     </div>
 
-</div>
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-grid">
+          <!-- BRAND -->
+          <div>
+            <div class="footer-brand">
+              <img
+                src="./assets/img/trise/logo.png"
+                alt="Trisentrix"
+                width="200"
+                height="80"
+              />
+            </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-container">
-    <div class="footer-grid">
+            <div class="footer-links">
+              <a href="privacy.html">Privacy Policy</a>
+              <a href="terms.html">Terms of Use</a>
+            </div>
 
-      <!-- BRAND -->
-      <div>
-        <div class="footer-brand">
-          <img src="./assets/img/trise/logo.png" alt="Trisentrix" width="200" height="80">
+            <p>© 2025 Trisentrix.<br />All rights reserved.</p>
+          </div>
+
+          <!-- CONTACT -->
+          <div>
+            <h4>Get in Touch</h4>
+            <p>715-A, 7th Floor<br />Chennai - 600002</p>
+            <a
+              href="mailto:contactus@trisentrix.com"
+              style="color: #ffffff !important; text-decoration: none"
+              >contactus@trisentrix.com</a
+            >
+          </div>
+
+          <!-- LINKS -->
+          <div>
+            <h4>Learn More</h4>
+            <div class="footer-links">
+              <a href="about.html">About Us</a>
+              <a href="services.html">Services</a>
+              <a href="product.html">Products</a>
+              <a href="career.html">Careers</a>
+            </div>
+          </div>
+
+          <!-- NEWSLETTER -->
+          <div>
+            <h4>Our Newsletter</h4>
+            <p>
+              Subscribe to our newsletter to get our news & deals delivered to
+              you.
+            </p>
+
+            <div class="newsletter-box">
+              <input type="email" placeholder="Email Address" />
+              <button type="button">Join</button>
+            </div>
+          </div>
         </div>
-
-        <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms of Use</a>
-        </div>
-
-        <p>© 2025 Trisentrix.<br>All rights reserved.</p>
       </div>
+    </footer>
 
-      <!-- CONTACT -->
-      <div>
-        <h4>Get in Touch</h4>
-        <p>715-A, 7th Floor<br>Chennai - 600002</p>
-        <a href="mailto:contactus@trisentrix.com" style="color:#ffffff !important; text-decoration:none;">contactus@trisentrix.com</a>
-      </div>
+    <script>
+      // Submission handler + Sticky Header Pop Effect on Scroll
+      const WEB_APP_URL =
+        "https://script.google.com/macros/s/AKfycbzZpNrDMmyKRQ8gjJH6Q9JYJPYPq7fn6t8fljBsBHGuCSiXARAjsAyjmE0Q-kUC6EHn1A/exec";
 
-      <!-- LINKS -->
-      <div>
-        <h4>Learn More</h4>
-        <div class="footer-links">
-          <a href="about.html">About Us</a>
-          <a href="services.html">Services</a>
-          <a href="product.html">Products</a>
-          <a href="career.html">Careers</a>
-        </div>
-      </div>
+      function submitForm(e) {
+        e.preventDefault();
+        const fileInput = document.getElementById("resume");
+        const file = fileInput && fileInput.files && fileInput.files[0];
+        if (!file) {
+          document.getElementById("error").innerText =
+            "Please upload resume PDF";
+          return;
+        }
 
-      <!-- NEWSLETTER -->
-      <div>
-        <h4>Our Newsletter</h4>
-        <p>Subscribe to our newsletter to get our news & deals delivered to you.</p>
+        const reader = new FileReader();
+        reader.onload = function () {
+          const base64 = reader.result.split(",")[1];
+          const domainVal = document.getElementById("domain")
+            ? document.getElementById("domain").value
+            : "";
+          const composedRole = domainVal
+            ? `Internship - ${domainVal}`
+            : "Internship";
 
-        <div class="newsletter-box">
-          <input type="email" placeholder="Email Address">
-          <button type="button">Join</button>
-        </div>
-      </div>
+          const payload = {
+            name: document.getElementById("fullName").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+            status: document.getElementById("status")
+              ? document.getElementById("status").value
+              : "",
+            experience: document.getElementById("status")
+              ? document.getElementById("status").value
+              : "",
+            domain: domainVal,
+            profile: document.getElementById("profile")
+              ? document.getElementById("profile").value
+              : "",
+            role: composedRole,
+            position: composedRole,
+            driveLink: "",
+            resumeBase64: base64,
+            resumeFileName: file.name,
+            sheetSection: "Internship",
+            driveFolder: "Internship",
+            notifyHR: true,
+            hrEmail: "contactus@trisentrix.com",
+          };
 
-    </div>
-  </div>
-</footer>
+          fetch(WEB_APP_URL, {
+            method: "POST",
+            body: JSON.stringify(payload),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.status === "success") {
+                window.location.href = "thankyou.html";
+              } else {
+                document.getElementById("error").innerText =
+                  data.message || "Submission failed";
+              }
+            })
+            .catch(() => {
+              document.getElementById("error").innerText = "Submission failed";
+            });
+        };
 
-<script>
-// Submission handler + Sticky Header Pop Effect on Scroll
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzZpNrDMmyKRQ8gjJH6Q9JYJPYPq7fn6t8fljBsBHGuCSiXARAjsAyjmE0Q-kUC6EHn1A/exec";
-
-function submitForm(e){
-  e.preventDefault();
-  const fileInput = document.getElementById('resume');
-  const file = fileInput && fileInput.files && fileInput.files[0];
-  if (!file) {
-    document.getElementById('error').innerText = 'Please upload resume PDF';
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = function () {
-    const base64 = reader.result.split(',')[1];
-    const domainVal = document.getElementById('domain') ? document.getElementById('domain').value : '';
-    const composedRole = domainVal ? `Internship - ${domainVal}` : 'Internship';
-
-    const payload = {
-      name: document.getElementById('fullName').value,
-      email: document.getElementById('email').value,
-      phone: document.getElementById('phone').value,
-      status: document.getElementById('status') ? document.getElementById('status').value : '',
-      experience: document.getElementById('status') ? document.getElementById('status').value : '',
-      domain: domainVal,
-      profile: document.getElementById('profile') ? document.getElementById('profile').value : '',
-      role: composedRole,
-      position: composedRole,
-      driveLink: '',
-      resumeBase64: base64,
-      resumeFileName: file.name,
-      sheetSection: 'Internship',
-      driveFolder: 'Internship',
-      notifyHR: true,
-      hrEmail: 'contactus@trisentrix.com'
-    };
-
-    fetch(WEB_APP_URL, {
-      method: 'POST',
-      body: JSON.stringify(payload)
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.status === 'success') {
-        window.location.href = 'thankyou.html';
-      } else {
-        document.getElementById('error').innerText = data.message || 'Submission failed';
+        reader.readAsDataURL(file);
       }
-    })
-    .catch(() => {
-      document.getElementById('error').innerText = 'Submission failed';
-    });
-  };
 
-  reader.readAsDataURL(file);
-}
+      let lastScrollTop = 0;
+      const popHeader = document.querySelector("#popHeader");
 
-let lastScrollTop = 0;
-const popHeader = document.querySelector('#popHeader');
+      window.addEventListener("scroll", function () {
+        let scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
 
-window.addEventListener('scroll', function() {
-  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  
-  if (scrollTop > 150) {
-    popHeader.classList.add('show');
-  } else {
-    popHeader.classList.remove('show');
-  }
-  
-  lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-});
-</script>
+        if (scrollTop > 150) {
+          popHeader.classList.add("show");
+        } else {
+          popHeader.classList.remove("show");
+        }
 
-</body>
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+      });
+    </script>
+        <script src="./assets/js/plugins.js"></script>
+    <script src="./assets/js/theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
