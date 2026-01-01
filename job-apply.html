@@ -34,7 +34,7 @@
         z-index: 100;
       }
 
-      .nav {
+      /* .nav {
         display: flex;
         gap: 32px;
 
@@ -50,7 +50,7 @@
       }
       .nav a:hover {
         color: #3f78e0;
-      }
+      } */
 
       .contact-btn {
         padding: 10px 22px;
@@ -297,9 +297,21 @@
         margin: 0;
         line-height: 1;
       }
+      #jobSkills {
+        list-style-type: disc;
+        padding-left: 20px;
+      }
+
+      #jobSkills li {
+        margin-bottom: 8px;
+        line-height: 1.6;
+      }
 
       /* RESPONSIVE */
       @media (max-width: 768px) {
+        .apply-box{
+          padding: 24px;
+        }
         .wrapper {
           margin: 40px 16px;
           padding: 32px;
@@ -676,7 +688,7 @@
       jobTitle.textContent = job.title;
       jobMeta.textContent = job.meta;
       jobOverview.textContent = job.overview;
-      job.skills.forEach((s) => (jobSkills.innerHTML += `<li>${s}</li>`));
+      jobSkills.innerHTML = job.skills.map((s) => `<li>${s}</li>`).join("");
 
       const WEB_APP_URL =
         "https://script.google.com/macros/s/AKfycbzZpNrDMmyKRQ8gjJH6Q9JYJPYPq7fn6t8fljBsBHGuCSiXARAjsAyjmE0Q-kUC6EHn1A/exec";
