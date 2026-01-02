@@ -337,8 +337,11 @@
       /* Mobile responsiveness */
       @media (max-width: 576px) {
         input[type="file"]::file-selector-button {
-          width: 100%;
+          width: fit-content;
           margin-bottom: 6px;
+        }
+        input[type="file"]{
+          text-align: center;
         }
       }
 
