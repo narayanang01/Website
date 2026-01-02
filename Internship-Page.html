@@ -53,23 +53,23 @@
       }
 
       /* ✅ CENTER NAV PERFECTLY
-      .nav {
-        display: flex;
-        gap: 32px;
+        .nav {
+          display: flex;
+          gap: 32px;
 
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-      }
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+        }
 
-      .nav a {
-        text-decoration: none;
-        font-weight: 600;
-        color: #0f172a;
-      }
-      .nav a:hover {
-        color: #3f78e0;
-      } */
+        .nav a {
+          text-decoration: none;
+          font-weight: 600;
+          color: #0f172a;
+        }
+        .nav a:hover {
+          color: #3f78e0;
+        } */
 
       .contact-btn {
         padding: 10px 22px;
@@ -439,14 +439,85 @@
       }
 
       .submit-btn {
-        padding: 14px;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 48px;
         background: #3f78e0;
         color: #fff;
         border: none;
-        cursor: pointer;
-        border-radius: 8px;
+        border-radius: 999px;
+        font-size: 15px;
         font-weight: 600;
-        margin-top: 20px;
+        cursor: pointer;
+      }
+      /* Style the input box */
+      input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #cfd8e3;
+        border-radius: 8px;
+        font-size: 14px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+
+      /* Style ONLY the button part */
+      input[type="file"]::file-selector-button {
+        padding: 8px 16px;
+        margin-right: 12px;
+        border: none;
+        border-radius: 6px;
+        background-color: #4f6ef7;
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      /* Hover effect */
+      input[type="file"]::file-selector-button:hover {
+        background-color: #3b57e3;
+      }
+      /* Spinner (hidden by default) */
+      .submit-btn .spinner {
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        display: none;
+      }
+
+      /* When loading */
+      .submit-btn.loading {
+        pointer-events: none;
+        opacity: 0.9;
+      }
+
+      .submit-btn.loading .spinner {
+        display: inline-block;
+      }
+
+      .submit-btn.loading .btn-text {
+        opacity: 0.85;
+      }
+
+      /* Animation */
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 576px) {
+        input[type="file"]::file-selector-button {
+          width: 25%;
+          margin-bottom: 6px;
+        }
       }
 
       @media (max-width: 900px) {
@@ -565,13 +636,13 @@
           <div class="navbar-other w-full !flex !ml-auto">
             <ul class="navbar-nav !flex-row !items-center !ml-auto">
               <!-- <li class="nav-item dropdown language-select uppercase group">
-                <a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">En</a>
-                <ul class="dropdown-menu group-hover:shadow-[0_0.25rem_0.75rem_rgba(30,34,40,0.15)]">
-                  <li class="nav-item"><a class="dropdown-item hover:!text-[#3f78e0] hover:bg-[inherit] " href="#">En</a></li>
-                  <li class="nav-item"><a class="dropdown-item hover:!text-[#3f78e0] hover:bg-[inherit] " href="#">De</a></li>
-                  <li class="nav-item"><a class="dropdown-item hover:!text-[#3f78e0] hover:bg-[inherit] " href="#">Es</a></li>
-                </ul>
-              </li> -->
+                  <a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">En</a>
+                  <ul class="dropdown-menu group-hover:shadow-[0_0.25rem_0.75rem_rgba(30,34,40,0.15)]">
+                    <li class="nav-item"><a class="dropdown-item hover:!text-[#3f78e0] hover:bg-[inherit] " href="#">En</a></li>
+                    <li class="nav-item"><a class="dropdown-item hover:!text-[#3f78e0] hover:bg-[inherit] " href="#">De</a></li>
+                    <li class="nav-item"><a class="dropdown-item hover:!text-[#3f78e0] hover:bg-[inherit] " href="#">Es</a></li>
+                  </ul>
+                </li> -->
               <li class="nav-item hidden xl:block lg:block md:block">
                 <a
                   href="./contact.html"
@@ -765,8 +836,9 @@
               />
             </div>
             <div class="form-group full">
-              <button type="submit" class="submit-btn">
-                Submit Application
+              <button type="submit" id="submitBtn" class="submit-btn">
+                <span class="btn-text">Submit Application</span>
+                <span class="spinner"></span>
               </button>
             </div>
             <p class="error" id="error"></p>
@@ -844,11 +916,24 @@
 
       function submitForm(e) {
         e.preventDefault();
-        const fileInput = document.getElementById("resume");
-        const file = fileInput && fileInput.files && fileInput.files[0];
+
+        const submitBtn = document.getElementById("submitBtn");
+        const errorEl = document.getElementById("error");
+        const btnText = submitBtn.querySelector(".btn-text");
+
+        errorEl.innerText = "";
+        submitBtn.classList.add("loading");
+        btnText.textContent = "Submitting...";
+        submitBtn.disabled = true;
+        // submitBtn.innerHTML = "Submitting...";
+
+        const file = document.getElementById("resume").files[0];
+
         if (!file) {
-          document.getElementById("error").innerText =
-            "Please upload resume PDF";
+          errorEl.innerText = "Please upload resume PDF";
+          submitBtn.classList.remove("loading");
+          btnText.textContent = "Submit Application";
+          submitBtn.disabled = false;
           return;
         }
 
@@ -898,10 +983,16 @@
               } else {
                 document.getElementById("error").innerText =
                   data.message || "Submission failed";
+                submitBtn.classList.remove("loading");
+                submitBtn.disabled = false;
+                btnText.textContent = "Submit Application";
               }
             })
             .catch(() => {
               document.getElementById("error").innerText = "Submission failed";
+              submitBtn.classList.remove("loading");
+              submitBtn.disabled = false;
+              btnText.textContent = "Submit Application";
             });
         };
 
@@ -924,7 +1015,7 @@
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
       });
     </script>
-        <script src="./assets/js/plugins.js"></script>
+    <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/theme.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>

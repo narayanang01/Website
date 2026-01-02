@@ -306,10 +306,45 @@
         margin-bottom: 8px;
         line-height: 1.6;
       }
+      /* Style the input box */
+      input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #cfd8e3;
+        border-radius: 8px;
+        font-size: 14px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+
+      /* Style ONLY the button part */
+      input[type="file"]::file-selector-button {
+        padding: 8px 16px;
+        margin-right: 12px;
+        border: none;
+        border-radius: 6px;
+        background-color: #4f6ef7;
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      /* Hover effect */
+      input[type="file"]::file-selector-button:hover {
+        background-color: #3b57e3;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 576px) {
+        input[type="file"]::file-selector-button {
+          width: 100%;
+          margin-bottom: 6px;
+        }
+      }
 
       /* RESPONSIVE */
       @media (max-width: 768px) {
-        .apply-box{
+        .apply-box {
           padding: 24px;
         }
         .wrapper {
