@@ -701,10 +701,6 @@
             option.textContent = `${country.name} (${country.code})`;
             dropdown.appendChild(option);
           });
-
-          // 🌟 Optional: Default India
-          const india = [...dropdown.options].find((o) => o.value === "+91");
-          if (india) india.selected = true;
         })
         .catch((err) => {
           console.error("Country load failed:", err);
