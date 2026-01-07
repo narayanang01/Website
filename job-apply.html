@@ -33,7 +33,26 @@
         position: relative;
         z-index: 100;
       }
+      .phone-row {
+        display: flex;
+        gap: 8px;
+      }
 
+      .phone-row select {
+        width: 140px;
+      }
+
+      /* Mobile: stack vertically */
+      @media (max-width: 576px) {
+        .phone-row {
+          flex-direction: column;
+        }
+
+        .phone-row select,
+        .phone-row input {
+          width: 100%;
+        }
+      }
       /* .nav {
         display: flex;
         gap: 32px;
@@ -539,11 +558,8 @@
           <div class="form-grid">
             <input id="name" required placeholder="Full Name *" />
             <input id="email" type="email" required placeholder="Email *" />
-            <div style="display: flex; gap: 8px">
-              <!-- Country Code Dropdown -->
-              <select id="countryCode" style="width: 140px"></select>
-
-              <!-- Phone Input -->
+            <div class="phone-row">
+              <select id="countryCode"></select>
               <input id="phone" required placeholder="Phone Number *" />
             </div>
             <select id="experience" required>
