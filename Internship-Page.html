@@ -769,13 +769,20 @@
             </div>
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="+91 98765 43210"
-                required
-              />
+
+              <div style="display: flex; gap: 8px">
+                <!-- Country Code Dropdown -->
+                <select id="countryCode" style="width: 140px"></select>
+
+                <!-- Phone Input -->
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="9876543210"
+                  required
+                />
+              </div>
             </div>
             <div class="form-group">
               <label for="status">Status</label>
@@ -979,6 +986,8 @@
           const composedRole = domainVal
             ? `Internship - ${domainVal}`
             : "Internship";
+          const countryCode = document.getElementById("countryCode").value;
+          const phoneNumber = document.getElementById("phone").value;
 
           const payload = {
             name: document.getElementById("fullName").value,
