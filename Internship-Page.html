@@ -1009,7 +1009,6 @@
             : "Internship";
           const countryCode = document.getElementById("countryCode").value;
           const phoneNumber = document.getElementById("phone").value;
-
           const payload = {
             name: document.getElementById("fullName").value,
             email: document.getElementById("email").value,
@@ -1034,6 +1033,8 @@
             notifyHR: true,
             hrEmail: "contactus@trisentrix.com",
           };
+          console.log(payload.profile);
+          console.log(payload);
 
           fetch(WEB_APP_URL, {
             method: "POST",
