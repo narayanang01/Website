@@ -937,6 +937,44 @@
     </footer>
 
     <script>
+            const dropdown = document.getElementById("countryCode");
+
+      // Show loading state
+      dropdown.innerHTML = `<option value="">Loading...</option>`;
+
+      fetch("https://restcountries.com/v3.1/all?fields=name,idd")
+        .then((res) => {
+          if (!res.ok) throw new Error("API failed");
+          return res.json();
+        })
+        .then((data) => {
+          const countries = data
+            .map((c) => {
+              const root = c.idd?.root;
+              const suffix = c.idd?.suffixes?.[0];
+              if (!root || !suffix) return null;
+
+              return {
+                name: c.name.common,
+                code: root + suffix,
+              };
+            })
+            .filter(Boolean)
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+          dropdown.innerHTML = `<option value="">Select Code</option>`;
+
+          countries.forEach((country) => {
+            const option = document.createElement("option");
+            option.value = country.code;
+            option.textContent = `${country.name} (${country.code})`;
+            dropdown.appendChild(option);
+          });
+        })
+        .catch((err) => {
+          console.error("Country load failed:", err);
+          dropdown.innerHTML = `<option value="">Failed to load</option>`;
+        });
       const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
       const ALLOWED_TYPES = ["application/pdf"];
       // Submission handler + Sticky Header Pop Effect on Scroll
@@ -986,13 +1024,13 @@
           const composedRole = domainVal
             ? `Internship - ${domainVal}`
             : "Internship";
-          const countryCode = document.getElementById("countryCode").value;
-          const phoneNumber = document.getElementById("phone").value;
+          let countryCode = document.getElementById("countryCode").value;
+          let phoneNumber = document.getElementById("phone").value.trim();
 
           const payload = {
             name: document.getElementById("fullName").value,
             email: document.getElementById("email").value,
-            phone: document.getElementById("phone").value,
+            phone: countryCode + " " + phoneNumber,
             status: document.getElementById("status").value,
             experience: document.getElementById("status").value,
             domain: domainVal,
