@@ -144,13 +144,10 @@
         font-family: inherit;
       }
 
-      .form-error {
-        display: none;
-        margin: 12px auto 0;
-        font-size: 16px !important;
-        color: #dc2626 !important;
+      .error {
+        color: #ef4444;
+        margin-top: 12px;
         text-align: center;
-        max-width: 100%;
       }
 
       input[type="file"] {
@@ -275,7 +272,6 @@
         outline: none;
         box-sizing: border-box;
         font-size: 14px;
-        background-color: white;
       }
 
       .newsletter-box button {
@@ -837,14 +833,12 @@
               ></textarea>
             </div>
             <div class="form-group full">
-              <label for="resume"
-                >Upload Resume (PDF Max-file-size upto 5MB)
-              </label>
+              <label for="resume">Upload Resume (PDF)</label>
               <input
                 id="resume"
                 name="resume"
                 type="file"
-                accept=".pdf,application/pdf"
+                accept=".pdf"
                 required
               />
             </div>
@@ -853,8 +847,8 @@
                 <span class="btn-text">Submit Application</span>
                 <span class="spinner"></span>
               </button>
-              <p class="form-error" id="error"></p>
             </div>
+            <p class="error" id="error"></p>
           </form>
         </div>
       </div>
@@ -938,11 +932,48 @@
     </footer>
 
     <script>
-      const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-      const ALLOWED_TYPES = ["application/pdf"];
+      const dropdown = document.getElementById("countryCode");
+
+      // Show loading state
+      dropdown.innerHTML = `<option value="">Loading...</option>`;
+
+      fetch("https://restcountries.com/v3.1/all?fields=name,idd")
+        .then((res) => {
+          if (!res.ok) throw new Error("API failed");
+          return res.json();
+        })
+        .then((data) => {
+          const countries = data
+            .map((c) => {
+              const root = c.idd?.root;
+              const suffix = c.idd?.suffixes?.[0];
+              if (!root || !suffix) return null;
+
+              return {
+                name: c.name.common,
+                code: root + suffix,
+              };
+            })
+            .filter(Boolean)
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+          dropdown.innerHTML = `<option value="">Select Code</option>`;
+
+          countries.forEach((country) => {
+            const option = document.createElement("option");
+            option.value = country.code;
+            option.textContent = `${country.name} (${country.code})`;
+            dropdown.appendChild(option);
+          });
+        })
+        .catch((err) => {
+          console.error("Country load failed:", err);
+          dropdown.innerHTML = `<option value="">Failed to load</option>`;
+        });
+
       // Submission handler + Sticky Header Pop Effect on Scroll
       const WEB_APP_URL =
-        "https://script.google.com/macros/s/AKfycbxVVyoYdhMX17EhnpzA8HgKZxus0Na6up6eKIgMLddyvUACl2DG-aHT9FiFhWZxrOeqxA/exec";
+        "https://script.google.com/macros/s/AKfycbx0w8QkdbxdJ_7HqFVUXfyRzvTmHx2j9b1b1RXu0yZMUNx5GPA91dzFOZetONlQZMo/exec";
 
       function submitForm(e) {
         e.preventDefault();
@@ -950,56 +981,49 @@
         const submitBtn = document.getElementById("submitBtn");
         const errorEl = document.getElementById("error");
         const btnText = submitBtn.querySelector(".btn-text");
-        const file = document.getElementById("resume").files[0];
 
         errorEl.innerText = "";
-        errorEl.style.display = "none";
-
-        // ===== FILE VALIDATION (same as job-apply) =====
-        if (!file) {
-          errorEl.style.display = "block";
-          errorEl.innerText = "Please upload resume PDF";
-          return;
-        }
-
-        if (file.size > MAX_FILE_SIZE) {
-          errorEl.style.display = "block";
-          errorEl.innerText = "File size must be less than 5 MB";
-          return;
-        }
-
-        if (!ALLOWED_TYPES.includes(file.type)) {
-          errorEl.style.display = "block";
-          errorEl.innerText = "Only PDF files are allowed";
-          return;
-        }
-
-        // ===== UI LOADING STATE =====
-        submitBtn.disabled = true;
         submitBtn.classList.add("loading");
         btnText.textContent = "Submitting...";
+        submitBtn.disabled = true;
+        // submitBtn.innerHTML = "Submitting...";
+
+        const file = document.getElementById("resume").files[0];
+
+        if (!file) {
+          errorEl.innerText = "Please upload resume PDF";
+          submitBtn.classList.remove("loading");
+          btnText.textContent = "Submit Application";
+          submitBtn.disabled = false;
+          return;
+        }
 
         const reader = new FileReader();
         reader.onload = function () {
           const base64 = reader.result.split(",")[1];
-
-          const domainVal = document.getElementById("domain").value;
+          const domainVal = document.getElementById("domain")
+            ? document.getElementById("domain").value
+            : "";
           const composedRole = domainVal
             ? `Internship - ${domainVal}`
             : "Internship";
           const countryCode = document.getElementById("countryCode").value;
           const phoneNumber = document.getElementById("phone").value;
-
           const payload = {
             name: document.getElementById("fullName").value,
             email: document.getElementById("email").value,
-            phone: document.getElementById("phone").value,
-            status: document.getElementById("status").value,
-            experience: document.getElementById("status").value,
+            phone: countryCode + " " + phoneNumber,
+            status: document.getElementById("status")
+              ? document.getElementById("status").value
+              : "",
+            experience: document.getElementById("status")
+              ? document.getElementById("status").value
+              : "",
             domain: domainVal,
             description: document.getElementById("profile").value || "",
             role: composedRole,
             position: composedRole,
+            driveLink: "",
             resumeBase64: base64,
             resumeFileName: file.name,
             sheetSection: "Internship",
@@ -1007,6 +1031,8 @@
             notifyHR: true,
             hrEmail: "contactus@trisentrix.com",
           };
+          console.log(payload.profile);
+          console.log(payload);
 
           fetch(WEB_APP_URL, {
             method: "POST",
@@ -1017,23 +1043,22 @@
               if (data.status === "success") {
                 window.location.href = "thankyou.html";
               } else {
-                errorEl.innerText = data.message || "Submission failed";
-                resetButton();
+                document.getElementById("error").innerText =
+                  data.message || "Submission failed";
+                submitBtn.classList.remove("loading");
+                submitBtn.disabled = false;
+                btnText.textContent = "Submit Application";
               }
             })
             .catch(() => {
-              errorEl.innerText = "Submission failed";
-              resetButton();
+              document.getElementById("error").innerText = "Submission failed";
+              submitBtn.classList.remove("loading");
+              submitBtn.disabled = false;
+              btnText.textContent = "Submit Application";
             });
         };
 
         reader.readAsDataURL(file);
-
-        function resetButton() {
-          submitBtn.disabled = false;
-          submitBtn.classList.remove("loading");
-          btnText.textContent = "Submit Application";
-        }
       }
     </script>
     <script src="./assets/js/plugins.js"></script>
