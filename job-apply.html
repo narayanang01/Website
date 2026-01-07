@@ -278,6 +278,7 @@
         outline: none;
         box-sizing: border-box;
         font-size: 14px;
+        background-color: white;
       }
 
       .newsletter-box button {
@@ -538,7 +539,13 @@
           <div class="form-grid">
             <input id="name" required placeholder="Full Name *" />
             <input id="email" type="email" required placeholder="Email *" />
-            <input id="phone" required placeholder="Phone Number *" />
+            <div style="display: flex; gap: 8px">
+              <!-- Country Code Dropdown -->
+              <select id="countryCode" style="width: 140px"></select>
+
+              <!-- Phone Input -->
+              <input id="phone" required placeholder="Phone Number *" />
+            </div>
             <select id="experience" required>
               <option value="">Select Experience *</option>
               <option>0–1 Years</option>
@@ -645,6 +652,48 @@
     </footer>
 
     <script>
+      const dropdown = document.getElementById("countryCode");
+
+      // Show loading state
+      dropdown.innerHTML = `<option value="">Loading...</option>`;
+
+      fetch("https://restcountries.com/v3.1/all?fields=name,idd")
+        .then((res) => {
+          if (!res.ok) throw new Error("API failed");
+          return res.json();
+        })
+        .then((data) => {
+          const countries = data
+            .map((c) => {
+              const root = c.idd?.root;
+              const suffix = c.idd?.suffixes?.[0];
+              if (!root || !suffix) return null;
+
+              return {
+                name: c.name.common,
+                code: root + suffix,
+              };
+            })
+            .filter(Boolean)
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+          dropdown.innerHTML = `<option value="">Select Code</option>`;
+
+          countries.forEach((country) => {
+            const option = document.createElement("option");
+            option.value = country.code;
+            option.textContent = `${country.name} (${country.code})`;
+            dropdown.appendChild(option);
+          });
+
+          // 🌟 Optional: Default India
+          const india = [...dropdown.options].find((o) => o.value === "+91");
+          if (india) india.selected = true;
+        })
+        .catch((err) => {
+          console.error("Country load failed:", err);
+          dropdown.innerHTML = `<option value="">Failed to load</option>`;
+        });
       const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
       const ALLOWED_TYPES = ["application/pdf"];
       const jobData = {
@@ -744,7 +793,7 @@
       jobSkills.innerHTML = job.skills.map((s) => `<li>${s}</li>`).join("");
 
       const WEB_APP_URL =
-        "https://script.google.com/macros/s/AKfycbzZpNrDMmyKRQ8gjJH6Q9JYJPYPq7fn6t8fljBsBHGuCSiXARAjsAyjmE0Q-kUC6EHn1A/exec";
+        "https://script.google.com/macros/s/AKfycbx0w8QkdbxdJ_7HqFVUXfyRzvTmHx2j9b1b1RXu0yZMUNx5GPA91dzFOZetONlQZMo/exec";
 
       function submitForm(e) {
         e.preventDefault();
@@ -775,6 +824,8 @@
         submitBtn.classList.add("loading");
         submitBtn.innerHTML = "Submitting...";
         errorMsg.innerText = "";
+        const countryCode = document.getElementById("countryCode").value;
+        const phoneNumber = document.getElementById("phone").value;
 
         const reader = new FileReader();
         reader.onload = function () {
@@ -783,7 +834,8 @@
           const payload = {
             name: document.getElementById("name").value,
             email: document.getElementById("email").value,
-            phone: document.getElementById("phone").value,
+            phone: countryCode + " " + phoneNumber,
+
             experience: document.getElementById("experience").value,
             role: job.title || role,
             resumeBase64: base64,

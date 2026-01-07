@@ -766,13 +766,20 @@
             </div>
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="+91 98765 43210"
-                required
-              />
+
+              <div style="display: flex; gap: 8px">
+                <!-- Country Code Dropdown -->
+                <select id="countryCode" style="width: 140px"></select>
+
+                <!-- Phone Input -->
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="9876543210"
+                  required
+                />
+              </div>
             </div>
             <div class="form-group">
               <label for="status">Status</label>
@@ -925,9 +932,48 @@
     </footer>
 
     <script>
+      const dropdown = document.getElementById("countryCode");
+
+      // Show loading state
+      dropdown.innerHTML = `<option value="">Loading...</option>`;
+
+      fetch("https://restcountries.com/v3.1/all?fields=name,idd")
+        .then((res) => {
+          if (!res.ok) throw new Error("API failed");
+          return res.json();
+        })
+        .then((data) => {
+          const countries = data
+            .map((c) => {
+              const root = c.idd?.root;
+              const suffix = c.idd?.suffixes?.[0];
+              if (!root || !suffix) return null;
+
+              return {
+                name: c.name.common,
+                code: root + suffix,
+              };
+            })
+            .filter(Boolean)
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+          dropdown.innerHTML = `<option value="">Select Code</option>`;
+
+          countries.forEach((country) => {
+            const option = document.createElement("option");
+            option.value = country.code;
+            option.textContent = `${country.name} (${country.code})`;
+            dropdown.appendChild(option);
+          });
+        })
+        .catch((err) => {
+          console.error("Country load failed:", err);
+          dropdown.innerHTML = `<option value="">Failed to load</option>`;
+        });
+
       // Submission handler + Sticky Header Pop Effect on Scroll
       const WEB_APP_URL =
-        "https://script.google.com/macros/s/AKfycbzZpNrDMmyKRQ8gjJH6Q9JYJPYPq7fn6t8fljBsBHGuCSiXARAjsAyjmE0Q-kUC6EHn1A/exec";
+        "https://script.google.com/macros/s/AKfycbx0w8QkdbxdJ_7HqFVUXfyRzvTmHx2j9b1b1RXu0yZMUNx5GPA91dzFOZetONlQZMo/exec";
 
       function submitForm(e) {
         e.preventDefault();
@@ -961,11 +1007,13 @@
           const composedRole = domainVal
             ? `Internship - ${domainVal}`
             : "Internship";
+          const countryCode = document.getElementById("countryCode").value;
+          const phoneNumber = document.getElementById("phone").value;
 
           const payload = {
             name: document.getElementById("fullName").value,
             email: document.getElementById("email").value,
-            phone: document.getElementById("phone").value,
+            phone: countryCode + " " + phoneNumber,
             status: document.getElementById("status")
               ? document.getElementById("status").value
               : "",
@@ -1013,22 +1061,6 @@
 
         reader.readAsDataURL(file);
       }
-
-      let lastScrollTop = 0;
-      const popHeader = document.querySelector("#popHeader");
-
-      window.addEventListener("scroll", function () {
-        let scrollTop =
-          window.pageYOffset || document.documentElement.scrollTop;
-
-        if (scrollTop > 150) {
-          popHeader.classList.add("show");
-        } else {
-          popHeader.classList.remove("show");
-        }
-
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-      });
     </script>
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/theme.js"></script>
