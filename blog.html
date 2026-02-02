@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* Latest blog */
+    .featured {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      cursor: pointer;
+    }
+
+    .featured img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+    }
+
+    .featured-content {
+      padding: 20px;
+    }
+
+    .featured h2 {
+      margin-top: 0;
+    }
+
+    /* Old blogs */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 15px;
+    }
+
+    .date {
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Latest Blog -->
+    <div id="featuredBlog"></div>
+
+    <!-- Old Blogs -->
+    <div class="grid" id="oldBlogs"></div>
+
+  </div>
+
+  <script>
+    fetch("data/blogs.json")
+      .then(res => res.json())
+      .then(blogs => {
+        if (!blogs || blogs.length === 0) return;
+
+        const latest = blogs[0];
+        const others = blogs.slice(1);
+
+        // Latest blog (BIG)
+        document.getElementById("featuredBlog").innerHTML = `
+          <div class="featured" onclick="location.href='${latest.url}'">
+            <img src="${latest.image}" alt="">
+            <div class="featured-content">
+              <h2>${latest.title}</h2>
+              <p>${latest.excerpt}</p>
+              <span class="date">${latest.date}</span>
+            </div>
+          </div>
+        `;
+
+        // Old blogs
+        document.getElementById("oldBlogs").innerHTML = others.map(blog => `
+          <div class="card" onclick="window.open('${blog.url}','_blank')">
+            <img src="${blog.image}" alt="">
+            <div class="card-body">
+              <h4>${blog.title}</h4>
+              <span class="date">${blog.date}</span>
+            </div>
+          </div>
+        `).join("");
+      })
+      .catch(err => console.error("Blog load error", err));
+  </script>
+</body>
+</html>
